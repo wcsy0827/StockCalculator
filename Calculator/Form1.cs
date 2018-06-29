@@ -52,13 +52,6 @@ namespace Calculator
         }
 
 
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             //計算手續費
