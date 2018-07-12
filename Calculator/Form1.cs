@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Calculator.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -51,7 +53,8 @@ namespace Calculator
             }
         }
 
-
+        double _totalcost = 0;
+        double _bepoint = 0;
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             //計算手續費
@@ -60,8 +63,9 @@ namespace Calculator
 
             double buyprice = double.Parse(this.txtBuyPrice.Text) * 1000;
 
+            _totalcost = buyprice * double.Parse(txtBuyAmount.Text) + fees;
             this.txtTotalCost.Text = (buyprice * double.Parse(txtBuyAmount.Text) + fees).ToString("C0");
-
+            _bepoint = (double.Parse(this.txtBuyPrice.Text) * (1 - 0.001425) / (1 - 0.001425 - 0.003));
             this.txtBEPoint.Text = (double.Parse(this.txtBuyPrice.Text) * (1 - 0.001425) / (1 - 0.001425 - 0.003)).ToString("C");
 
 
@@ -72,7 +76,7 @@ namespace Calculator
         //限制輸入條件
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
             txtBuyPrice.MaxLength = 7;
         }
 
@@ -128,6 +132,53 @@ namespace Calculator
 
 
 
+        }
+
+        private void btnButHisroty_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+        //連線方法input買進資料
+        private void btnBuyInput_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = Settings.Default.StockTestConnectionString;
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.CommandText = "Insert into  buyhisrory_test(buyprice,buyamount,totalcost,BEpoint,stockid) values (@price, @amount,@cost,@BEpoint,@id)";
+                        command.Connection = conn;
+
+                        //string[] words = { "aaa", "dsf",  "ccc", "ddd", "ee" };
+                        //=============================
+
+
+
+                        //==============================
+                        command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(this.textBox2.Text);
+                        command.Parameters.Add("@price", SqlDbType.Decimal,8).Value =decimal.Parse( this.txtBuyPrice.Text);
+                        command.Parameters.Add("@amount", SqlDbType.Decimal, 8).Value = decimal.Parse(this.txtBuyAmount.Text) ;
+                        command.Parameters.Add("@cost", SqlDbType.Int).Value = _totalcost;
+                        command.Parameters.Add("@BEpoint", SqlDbType.Decimal, 8).Value =_bepoint;
+
+
+                        conn.Open();
+                        command.ExecuteNonQuery();
+
+                        MessageBox.Show("Insert member successfully");
+
+                    } //auto command.Dispose()
+                }//auto conn.Close(); conn.Dispose()
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 

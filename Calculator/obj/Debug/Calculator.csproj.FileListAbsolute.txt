@@ -8,3 +8,5 @@ D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.csproj.GenerateResour
 D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.csproj.CoreCompileInputs.cache
 D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.exe
 D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.pdb
+D:\StockCalculatorProject1\Calculator\bin\Debug\DBTransaction.mdf
+D:\StockCalculatorProject1\Calculator\bin\Debug\DBTransaction_log.ldf
