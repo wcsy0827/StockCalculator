@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.txtstockid2 = new System.Windows.Forms.TextBox();
             this.txtSellPrice = new System.Windows.Forms.TextBox();
             this.txtSellAmount = new System.Windows.Forms.TextBox();
             this.textBox4 = new System.Windows.Forms.TextBox();
@@ -50,19 +50,21 @@
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // textBox3
+            // txtstockid2
             // 
-            this.textBox3.Location = new System.Drawing.Point(116, 61);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(106, 22);
-            this.textBox3.TabIndex = 46;
-            this.textBox3.Text = "1590";
+            this.txtstockid2.Location = new System.Drawing.Point(116, 61);
+            this.txtstockid2.Name = "txtstockid2";
+            this.txtstockid2.Size = new System.Drawing.Size(106, 22);
+            this.txtstockid2.TabIndex = 46;
+            this.txtstockid2.Text = "1590";
             // 
             // txtSellPrice
             // 
-            this.txtSellPrice.Location = new System.Drawing.Point(116, 100);
+            this.txtSellPrice.Location = new System.Drawing.Point(116, 151);
             this.txtSellPrice.Name = "txtSellPrice";
             this.txtSellPrice.Size = new System.Drawing.Size(106, 22);
             this.txtSellPrice.TabIndex = 48;
@@ -70,7 +72,7 @@
             // 
             // txtSellAmount
             // 
-            this.txtSellAmount.Location = new System.Drawing.Point(116, 138);
+            this.txtSellAmount.Location = new System.Drawing.Point(116, 189);
             this.txtSellAmount.Name = "txtSellAmount";
             this.txtSellAmount.Size = new System.Drawing.Size(106, 22);
             this.txtSellAmount.TabIndex = 49;
@@ -96,7 +98,7 @@
             // 
             // txtTotalProfit
             // 
-            this.txtTotalProfit.Location = new System.Drawing.Point(116, 177);
+            this.txtTotalProfit.Location = new System.Drawing.Point(116, 228);
             this.txtTotalProfit.Name = "txtTotalProfit";
             this.txtTotalProfit.ReadOnly = true;
             this.txtTotalProfit.Size = new System.Drawing.Size(106, 22);
@@ -104,7 +106,7 @@
             // 
             // txtRR
             // 
-            this.txtRR.Location = new System.Drawing.Point(116, 220);
+            this.txtRR.Location = new System.Drawing.Point(116, 271);
             this.txtRR.Name = "txtRR";
             this.txtRR.ReadOnly = true;
             this.txtRR.Size = new System.Drawing.Size(106, 22);
@@ -125,6 +127,7 @@
             this.button1.TabIndex = 58;
             this.button1.Text = "計算";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btnSellInput
             // 
@@ -159,7 +162,7 @@
             // 
             this.label15.AutoSize = true;
             this.label15.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label15.Location = new System.Drawing.Point(27, 223);
+            this.label15.Location = new System.Drawing.Point(27, 274);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(71, 19);
             this.label15.TabIndex = 62;
@@ -189,7 +192,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label7.Location = new System.Drawing.Point(8, 180);
+            this.label7.Location = new System.Drawing.Point(8, 231);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(90, 19);
             this.label7.TabIndex = 54;
@@ -209,7 +212,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label9.Location = new System.Drawing.Point(46, 138);
+            this.label9.Location = new System.Drawing.Point(46, 189);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(52, 19);
             this.label9.TabIndex = 50;
@@ -219,7 +222,7 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("新細明體", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
-            this.label10.Location = new System.Drawing.Point(46, 98);
+            this.label10.Location = new System.Drawing.Point(46, 149);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(52, 19);
             this.label10.TabIndex = 47;
@@ -255,15 +258,37 @@
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label2.Location = new System.Drawing.Point(62, 93);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(36, 13);
+            this.label2.TabIndex = 78;
+            this.label2.Text = "庫存:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("新細明體", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(136)));
+            this.label3.Location = new System.Drawing.Point(36, 115);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(62, 13);
+            this.label3.TabIndex = 79;
+            this.label3.Text = "平均成本:";
+            // 
             // FrmSell
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(502, 388);
+            this.ClientSize = new System.Drawing.Size(502, 359);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txtstockid2);
             this.Controls.Add(this.txtSellPrice);
             this.Controls.Add(this.txtSellAmount);
             this.Controls.Add(this.textBox4);
@@ -291,7 +316,7 @@
 
         #endregion
 
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox txtstockid2;
         private System.Windows.Forms.TextBox txtSellPrice;
         private System.Windows.Forms.TextBox txtSellAmount;
         private System.Windows.Forms.TextBox textBox4;
@@ -313,5 +338,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
     }
 }
