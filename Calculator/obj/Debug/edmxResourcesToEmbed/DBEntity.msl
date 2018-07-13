@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DBTransactionModelStoreContainer" CdmEntityContainer="DBTransactionEntities">
+    <EntitySetMapping Name="Buyhistory">
+      <EntityTypeMapping TypeName="DBTransactionModel.Buyhistory">
+        <MappingFragment StoreEntitySet="Buyhistory">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="buyprice" ColumnName="buyprice" />
+          <ScalarProperty Name="buyamount" ColumnName="buyamount" />
+          <ScalarProperty Name="totalcost" ColumnName="totalcost" />
+          <ScalarProperty Name="BEpoint" ColumnName="BEpoint" />
+          <ScalarProperty Name="stockid" ColumnName="stockid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Sellhistory">
+      <EntityTypeMapping TypeName="DBTransactionModel.Sellhistory">
+        <MappingFragment StoreEntitySet="Sellhistory">
+          <ScalarProperty Name="ROI" ColumnName="ROI" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="Sellprice" ColumnName="Sellprice" />
+          <ScalarProperty Name="Sellamount" ColumnName="Sellamount" />
+          <ScalarProperty Name="totalprofit" ColumnName="totalprofit" />
+          <ScalarProperty Name="stockid" ColumnName="stockid" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Transaction_history">
+      <EntityTypeMapping TypeName="DBTransactionModel.Transaction_history">
+        <MappingFragment StoreEntitySet="Transaction history">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="buyprice" ColumnName="buyprice" />
+          <ScalarProperty Name="buyamount" ColumnName="buyamount" />
+          <ScalarProperty Name="totalcost" ColumnName="totalcost" />
+          <ScalarProperty Name="BEpoint" ColumnName="BEpoint" />
+          <ScalarProperty Name="buyorsell" ColumnName="buyorsell" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,6 +18,7 @@ namespace Calculator
         public Form1()
         {
             InitializeComponent();
+            
         }
 
         double _fees = 0;
@@ -24,8 +26,7 @@ namespace Calculator
         {
 
             get
-            {
-                
+            {                
                 return _fees;
             }
             set 
@@ -41,7 +42,6 @@ namespace Calculator
         double _tax = 0;
         private double tax
         {
-
             get
             {
                 return _tax;
@@ -49,12 +49,16 @@ namespace Calculator
             set
             {
                 _tax = Convert.ToInt16(Math.Floor(value));
-
             }
         }
+        //======
 
+
+        //======
         double _totalcost = 0;
         double _bepoint = 0;
+        double _totalprofit = 0;
+        double _ROI = 0;
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             //計算手續費
@@ -67,8 +71,6 @@ namespace Calculator
             this.txtTotalCost.Text = (buyprice * double.Parse(txtBuyAmount.Text) + fees).ToString("C0");
             _bepoint = (double.Parse(this.txtBuyPrice.Text) * (1 - 0.001425) / (1 - 0.001425 - 0.003));
             this.txtBEPoint.Text = (double.Parse(this.txtBuyPrice.Text) * (1 - 0.001425) / (1 - 0.001425 - 0.003)).ToString("C");
-
-
 
 
         }
@@ -109,7 +111,7 @@ namespace Calculator
             e.Handled = true;
         }
 
-
+        //計算獲利
         private void button1_Click(object sender, EventArgs e)
         {
 
@@ -119,24 +121,20 @@ namespace Calculator
             double buyprice = double.Parse(this.txtBuyPrice.Text) * 1000;
             double sellprice = double.Parse(this.txtSellPrice.Text) * 1000;
 
-
+            _totalprofit = ((sellprice * double.Parse(txtBuyAmount.Text) - fees - tax) - (buyprice * double.Parse(txtBuyAmount.Text) + fees));
+            _ROI = (((sellprice * double.Parse(txtBuyAmount.Text) - fees - tax) - (buyprice * double.Parse(txtBuyAmount.Text) + fees)) / (buyprice * double.Parse(txtBuyAmount.Text) + fees));
 
             this.txtTotalProfit.Text = ((sellprice * double.Parse(txtBuyAmount.Text) - fees-tax)- (buyprice * double.Parse(txtBuyAmount.Text) + fees)).ToString("C0");
             this.txtRR.Text=( ((sellprice * double.Parse(txtBuyAmount.Text) - fees - tax) - (buyprice * double.Parse(txtBuyAmount.Text) + fees))/ (buyprice * double.Parse(txtBuyAmount.Text) + fees)).ToString("P");
-
-
-            
-            
-         
-           
-
 
 
         }
 
         private void btnButHisroty_Click(object sender, EventArgs e)
         {
-
+            DBTransactionEntities dc = new DBTransactionEntities();
+            dataGridView1.DataSource = dc.Buyhistory.ToArray();
+            dataGridView1.Columns["totalcost"].DefaultCellStyle.Format = "c0";
         }
 
 
@@ -147,23 +145,21 @@ namespace Calculator
             {
                 using (SqlConnection conn = new SqlConnection())
                 {
-                    conn.ConnectionString = Settings.Default.StockTestConnectionString;
+                    conn.ConnectionString = Settings.Default.DBTransactionConnectionString;
                     using (SqlCommand command = new SqlCommand())
                     {
-                        command.CommandText = "Insert into  buyhisrory_test(buyprice,buyamount,totalcost,BEpoint,stockid) values (@price, @amount,@cost,@BEpoint,@id)";
+                        command.CommandText = "Insert into  Buyhistory(buyprice,buyamount,totalcost,BEpoint,stockid,date) values (@price, @amount,@cost,@BEpoint,@id,@date)";
                         command.Connection = conn;
 
-                        //string[] words = { "aaa", "dsf",  "ccc", "ddd", "ee" };
                         //=============================
-
-
 
                         //==============================
                         command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(this.textBox2.Text);
-                        command.Parameters.Add("@price", SqlDbType.Decimal,8).Value =decimal.Parse( this.txtBuyPrice.Text);
-                        command.Parameters.Add("@amount", SqlDbType.Decimal, 8).Value = decimal.Parse(this.txtBuyAmount.Text) ;
+                        command.Parameters.Add("@price", SqlDbType.Decimal,6).Value =decimal.Parse( this.txtBuyPrice.Text);
+                        command.Parameters.Add("@amount", SqlDbType.Decimal,6).Value = decimal.Parse(this.txtBuyAmount.Text) ;
                         command.Parameters.Add("@cost", SqlDbType.Int).Value = _totalcost;
-                        command.Parameters.Add("@BEpoint", SqlDbType.Decimal, 8).Value =_bepoint;
+                        command.Parameters.Add("@BEpoint", SqlDbType.Decimal, 6).Value =_bepoint;
+                        command.Parameters.Add("@date", SqlDbType.SmallDateTime, 6).Value = this.dateTimePicker1.Value.ToShortDateString();
 
 
                         conn.Open();
@@ -174,6 +170,12 @@ namespace Calculator
                     } //auto command.Dispose()
                 }//auto conn.Close(); conn.Dispose()
 
+                //重新整理datagridview
+                DBTransactionEntities dc = new DBTransactionEntities(); 
+                
+                dataGridView1.DataSource = dc.Buyhistory.ToArray();
+                dataGridView1.Columns["Id"].Visible = false;
+                dataGridView1.Columns["totalcost"].DefaultCellStyle.Format = "c0";
             }
             catch (Exception ex)
             {
@@ -182,5 +184,67 @@ namespace Calculator
         }
 
 
+        private void btnSellInput_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = Settings.Default.DBTransactionConnectionString;
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.CommandText = "Insert into  Sellhistory(Sellprice,Sellamount,totalprofit,ROI,stockid,date) values (@price, @amount,@profit,@ROI,@id,@date)";
+                        command.Connection = conn;
+
+                        //=============================
+                        //==============================
+                        command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(this.textBox3.Text);
+                        command.Parameters.Add("@price", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtSellPrice.Text);
+                        command.Parameters.Add("@amount", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtSellAmount.Text);
+                        command.Parameters.Add("@profit", SqlDbType.Int).Value = _totalprofit;
+                        command.Parameters.Add("@ROI", SqlDbType.Decimal, 6).Value = _ROI;
+                        command.Parameters.Add("@date", SqlDbType.SmallDateTime, 6).Value = this.dateTimePicker2.Value.ToShortDateString();
+
+                        conn.Open();
+                        command.ExecuteNonQuery();
+
+                        MessageBox.Show("Insert sell information successfully");
+
+                    } //auto command.Dispose()
+                }//auto conn.Close(); conn.Dispose()
+
+                //重新整理datagridview
+                DBTransactionEntities dc = new DBTransactionEntities();
+
+                dataGridView1.DataSource = dc.Sellhistory.ToArray();
+                dataGridView1.Columns["Id"].Visible = false;
+                dataGridView1.Columns["totalprofit"].DefaultCellStyle.Format = "c0";
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void BtnSellHistory_Click(object sender, EventArgs e)
+        {
+            DBTransactionEntities dc = new DBTransactionEntities();
+            dataGridView1.DataSource = dc.Sellhistory.ToArray();
+            dataGridView1.Columns["Id"].Visible = false;
+            dataGridView1.Columns["totalprofit"].DefaultCellStyle.Format = "c0";
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if(checkBox1.Checked)
+            {
+                this.TopMost = true;
+            }
+            else
+            {
+                this.TopMost = false;
+            }
+        }
     }
 }

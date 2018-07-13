@@ -10,3 +10,11 @@ D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.exe
 D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.pdb
 D:\StockCalculatorProject1\Calculator\bin\Debug\DBTransaction.mdf
 D:\StockCalculatorProject1\Calculator\bin\Debug\DBTransaction_log.ldf
+D:\StockCalculatorProject1\Calculator\bin\Debug\EntityFramework.dll
+D:\StockCalculatorProject1\Calculator\bin\Debug\EntityFramework.SqlServer.dll
+D:\StockCalculatorProject1\Calculator\bin\Debug\EntityFramework.xml
+D:\StockCalculatorProject1\Calculator\bin\Debug\EntityFramework.SqlServer.xml
+D:\StockCalculatorProject1\Calculator\bin\Debug\zh-Hant\EntityFramework.resources.dll
+D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.csproj.CopyComplete
+D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.FrmBuy.resources
+D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.FrmMain.resources

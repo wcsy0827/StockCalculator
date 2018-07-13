@@ -71,6 +71,7 @@
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.dateTimePicker2 = new System.Windows.Forms.DateTimePicker();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -119,7 +120,8 @@
             this.txtBuyPrice.Location = new System.Drawing.Point(127, 130);
             this.txtBuyPrice.Name = "txtBuyPrice";
             this.txtBuyPrice.Size = new System.Drawing.Size(106, 22);
-            this.txtBuyPrice.TabIndex = 4;
+            this.txtBuyPrice.TabIndex = 2;
+            this.txtBuyPrice.Text = "350";
             this.txtBuyPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuyPrice_KeyPress);
             // 
             // txtBuyAmount
@@ -127,7 +129,8 @@
             this.txtBuyAmount.Location = new System.Drawing.Point(127, 168);
             this.txtBuyAmount.Name = "txtBuyAmount";
             this.txtBuyAmount.Size = new System.Drawing.Size(106, 22);
-            this.txtBuyAmount.TabIndex = 5;
+            this.txtBuyAmount.TabIndex = 3;
+            this.txtBuyAmount.Text = "3";
             this.txtBuyAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBuyAmount_KeyPress);
             // 
             // txtTex
@@ -136,7 +139,7 @@
             this.txtTex.Name = "txtTex";
             this.txtTex.ReadOnly = true;
             this.txtTex.Size = new System.Drawing.Size(106, 22);
-            this.txtTex.TabIndex = 6;
+            this.txtTex.TabIndex = 4;
             this.txtTex.Text = "千分之1.425";
             // 
             // txtTotalCost
@@ -145,7 +148,7 @@
             this.txtTotalCost.Name = "txtTotalCost";
             this.txtTotalCost.ReadOnly = true;
             this.txtTotalCost.Size = new System.Drawing.Size(106, 22);
-            this.txtTotalCost.TabIndex = 7;
+            this.txtTotalCost.TabIndex = 5;
             // 
             // btnCalculate
             // 
@@ -173,14 +176,14 @@
             this.txtBEPoint.Name = "txtBEPoint";
             this.txtBEPoint.ReadOnly = true;
             this.txtBEPoint.Size = new System.Drawing.Size(106, 22);
-            this.txtBEPoint.TabIndex = 21;
+            this.txtBEPoint.TabIndex = 6;
             // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(289, 416);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(106, 41);
-            this.button1.TabIndex = 19;
+            this.button1.TabIndex = 18;
             this.button1.Text = "計算";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
@@ -191,7 +194,7 @@
             this.txtTotalProfit.Name = "txtTotalProfit";
             this.txtTotalProfit.ReadOnly = true;
             this.txtTotalProfit.Size = new System.Drawing.Size(106, 22);
-            this.txtTotalProfit.TabIndex = 18;
+            this.txtTotalProfit.TabIndex = 15;
             // 
             // textBox4
             // 
@@ -199,7 +202,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.ReadOnly = true;
             this.textBox4.Size = new System.Drawing.Size(106, 22);
-            this.textBox4.TabIndex = 17;
+            this.textBox4.TabIndex = 13;
             this.textBox4.Text = "千分之1.425";
             // 
             // txtSellAmount
@@ -207,7 +210,8 @@
             this.txtSellAmount.Location = new System.Drawing.Point(401, 168);
             this.txtSellAmount.Name = "txtSellAmount";
             this.txtSellAmount.Size = new System.Drawing.Size(106, 22);
-            this.txtSellAmount.TabIndex = 16;
+            this.txtSellAmount.TabIndex = 12;
+            this.txtSellAmount.Text = "3";
             this.txtSellAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSellAmount_KeyPress);
             // 
             // txtSellPrice
@@ -215,7 +219,8 @@
             this.txtSellPrice.Location = new System.Drawing.Point(401, 130);
             this.txtSellPrice.Name = "txtSellPrice";
             this.txtSellPrice.Size = new System.Drawing.Size(106, 22);
-            this.txtSellPrice.TabIndex = 15;
+            this.txtSellPrice.TabIndex = 11;
+            this.txtSellPrice.Text = "360";
             this.txtSellPrice.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtSellPrice_KeyPress);
             // 
             // label7
@@ -284,7 +289,7 @@
             this.textBox7.Name = "textBox7";
             this.textBox7.ReadOnly = true;
             this.textBox7.Size = new System.Drawing.Size(106, 22);
-            this.textBox7.TabIndex = 25;
+            this.textBox7.TabIndex = 14;
             this.textBox7.Text = "千分之3";
             // 
             // label13
@@ -303,7 +308,7 @@
             this.txtRR.Name = "txtRR";
             this.txtRR.ReadOnly = true;
             this.txtRR.Size = new System.Drawing.Size(106, 22);
-            this.txtRR.TabIndex = 27;
+            this.txtRR.TabIndex = 16;
             // 
             // label15
             // 
@@ -327,7 +332,8 @@
             // 
             // dataGridView1
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(537, 89);
@@ -341,7 +347,7 @@
             this.btnButHisroty.Location = new System.Drawing.Point(537, 46);
             this.btnButHisroty.Name = "btnButHisroty";
             this.btnButHisroty.Size = new System.Drawing.Size(81, 36);
-            this.btnButHisroty.TabIndex = 31;
+            this.btnButHisroty.TabIndex = 20;
             this.btnButHisroty.Text = "買進紀錄";
             this.btnButHisroty.UseVisualStyleBackColor = true;
             this.btnButHisroty.Click += new System.EventHandler(this.btnButHisroty_Click);
@@ -351,23 +357,24 @@
             this.BtnSellHistory.Location = new System.Drawing.Point(624, 46);
             this.BtnSellHistory.Name = "BtnSellHistory";
             this.BtnSellHistory.Size = new System.Drawing.Size(81, 36);
-            this.BtnSellHistory.TabIndex = 32;
+            this.BtnSellHistory.TabIndex = 21;
             this.BtnSellHistory.Text = "賣出紀錄";
             this.BtnSellHistory.UseVisualStyleBackColor = true;
+            this.BtnSellHistory.Click += new System.EventHandler(this.BtnSellHistory_Click);
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(729, 59);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(100, 22);
-            this.textBox1.TabIndex = 33;
+            this.textBox1.TabIndex = 22;
             // 
             // btnStockIDSearch
             // 
             this.btnStockIDSearch.Location = new System.Drawing.Point(835, 46);
             this.btnStockIDSearch.Name = "btnStockIDSearch";
             this.btnStockIDSearch.Size = new System.Drawing.Size(81, 36);
-            this.btnStockIDSearch.TabIndex = 34;
+            this.btnStockIDSearch.TabIndex = 23;
             this.btnStockIDSearch.Text = "查詢";
             this.btnStockIDSearch.UseVisualStyleBackColor = true;
             // 
@@ -385,7 +392,8 @@
             this.textBox2.Location = new System.Drawing.Point(127, 91);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(106, 22);
-            this.textBox2.TabIndex = 37;
+            this.textBox2.TabIndex = 1;
+            this.textBox2.Text = "1590";
             // 
             // label16
             // 
@@ -402,7 +410,8 @@
             this.textBox3.Location = new System.Drawing.Point(401, 91);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(106, 22);
-            this.textBox3.TabIndex = 39;
+            this.textBox3.TabIndex = 10;
+            this.textBox3.Text = "1590";
             // 
             // label17
             // 
@@ -419,7 +428,7 @@
             this.btnBuyInput.Location = new System.Drawing.Point(135, 416);
             this.btnBuyInput.Name = "btnBuyInput";
             this.btnBuyInput.Size = new System.Drawing.Size(106, 41);
-            this.btnBuyInput.TabIndex = 40;
+            this.btnBuyInput.TabIndex = 9;
             this.btnBuyInput.Text = "存入買進資訊";
             this.btnBuyInput.UseVisualStyleBackColor = true;
             this.btnBuyInput.Click += new System.EventHandler(this.btnBuyInput_Click);
@@ -429,16 +438,18 @@
             this.btnSellInput.Location = new System.Drawing.Point(401, 416);
             this.btnSellInput.Name = "btnSellInput";
             this.btnSellInput.Size = new System.Drawing.Size(106, 41);
-            this.btnSellInput.TabIndex = 41;
+            this.btnSellInput.TabIndex = 19;
             this.btnSellInput.Text = "存入賣出資訊";
             this.btnSellInput.UseVisualStyleBackColor = true;
+            this.btnSellInput.Click += new System.EventHandler(this.btnSellInput_Click);
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Location = new System.Drawing.Point(125, 342);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(108, 22);
-            this.dateTimePicker1.TabIndex = 42;
+            this.dateTimePicker1.TabIndex = 7;
+            this.dateTimePicker1.Value = new System.DateTime(2018, 7, 13, 0, 0, 0, 0);
             // 
             // label18
             // 
@@ -465,52 +476,64 @@
             this.dateTimePicker2.Location = new System.Drawing.Point(401, 378);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(108, 22);
-            this.dateTimePicker2.TabIndex = 44;
+            this.dateTimePicker2.TabIndex = 17;
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(12, 12);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(72, 16);
+            this.checkBox1.TabIndex = 46;
+            this.checkBox1.Text = "視窗置頂";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1274, 469);
-            this.Controls.Add(this.label19);
-            this.Controls.Add(this.dateTimePicker2);
-            this.Controls.Add(this.label18);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.txtBuyPrice);
+            this.Controls.Add(this.txtBuyAmount);
+            this.Controls.Add(this.txtTex);
+            this.Controls.Add(this.txtTotalCost);
+            this.Controls.Add(this.txtBEPoint);
             this.Controls.Add(this.dateTimePicker1);
-            this.Controls.Add(this.btnSellInput);
+            this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.btnBuyInput);
             this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txtSellPrice);
+            this.Controls.Add(this.txtSellAmount);
+            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.textBox7);
+            this.Controls.Add(this.txtTotalProfit);
+            this.Controls.Add(this.txtRR);
+            this.Controls.Add(this.dateTimePicker2);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnSellInput);
+            this.Controls.Add(this.btnButHisroty);
+            this.Controls.Add(this.BtnSellHistory);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.btnStockIDSearch);
+            this.Controls.Add(this.label19);
+            this.Controls.Add(this.label18);
             this.Controls.Add(this.label17);
-            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label16);
             this.Controls.Add(this.label14);
-            this.Controls.Add(this.btnStockIDSearch);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.BtnSellHistory);
-            this.Controls.Add(this.btnButHisroty);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.txtRR);
             this.Controls.Add(this.label15);
-            this.Controls.Add(this.textBox7);
             this.Controls.Add(this.label13);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.txtBEPoint);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.txtTotalProfit);
-            this.Controls.Add(this.textBox4);
-            this.Controls.Add(this.txtSellAmount);
-            this.Controls.Add(this.txtSellPrice);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.btnCalculate);
-            this.Controls.Add(this.txtTotalCost);
-            this.Controls.Add(this.txtTex);
-            this.Controls.Add(this.txtBuyAmount);
-            this.Controls.Add(this.txtBuyPrice);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -569,6 +592,7 @@
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.DateTimePicker dateTimePicker2;
+        private System.Windows.Forms.CheckBox checkBox1;
     }
 }
 

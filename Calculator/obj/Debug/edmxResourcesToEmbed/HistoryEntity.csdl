@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBTransactionModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Buyhistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date" Type="DateTime" Precision="0" />
+    <Property Name="buyprice" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="buyamount" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="totalcost" Type="Int32" Nullable="false" />
+    <Property Name="BEpoint" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+    <Property Name="stockid" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Sellhistory">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Sellprice" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+    <Property Name="Sellamount" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+    <Property Name="totalprofit" Type="Int32" Nullable="false" />
+    <Property Name="stockid" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Transaction_history">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="buyprice" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+    <Property Name="buyamount" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+    <Property Name="totalcost" Type="Int32" Nullable="false" />
+    <Property Name="BEpoint" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
+    <Property Name="buyorsell" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="DBTransactionEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Buyhistory" EntityType="Self.Buyhistory" />
+    <EntitySet Name="Sellhistory" EntityType="Self.Sellhistory" />
+    <EntitySet Name="Transaction_history" EntityType="Self.Transaction_history" />
+  </EntityContainer>
+</Schema>
