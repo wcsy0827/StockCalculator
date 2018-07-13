@@ -1,0 +1,7 @@
+
+*.ldf
+*.mdf
+*.mdf
+*.ldf
+Calculator/bin/Debug/DBTransaction_log.ldf
+Calculator/bin/Debug/DBTransaction.mdf
