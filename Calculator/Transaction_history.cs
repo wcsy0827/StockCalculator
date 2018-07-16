@@ -15,11 +15,11 @@ namespace Calculator
     public partial class Transaction_history
     {
         public int Id { get; set; }
-        public System.DateTime date { get; set; }
-        public decimal buyprice { get; set; }
-        public decimal buyamount { get; set; }
-        public int totalcost { get; set; }
-        public decimal BEpoint { get; set; }
-        public string buyorsell { get; set; }
+        public Nullable<System.DateTime> date { get; set; }
+        public Nullable<bool> buysell { get; set; }
+        public Nullable<decimal> price { get; set; }
+        public Nullable<decimal> amount { get; set; }
+        public Nullable<int> netincome { get; set; }
+        public Nullable<int> stockid { get; set; }
     }
 }

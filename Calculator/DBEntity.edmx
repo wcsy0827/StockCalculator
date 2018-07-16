@@ -11,11 +11,14 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="smalldatetime" />
-          <Property Name="buyprice" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="buyamount" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="totalcost" Type="int" Nullable="false" />
-          <Property Name="BEpoint" Type="decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="buyprice" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="buyamount" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="totalcost" Type="int" />
+          <Property Name="BEpoint" Type="decimal" Precision="6" Scale="2" />
           <Property Name="stockid" Type="int" Nullable="false" />
+          <Property Name="ERate" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TP" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Sellhistory">
           <Key>
@@ -23,23 +26,24 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="date" Type="smalldatetime" />
-          <Property Name="Sellprice" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="Sellamount" Type="decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="totalprofit" Type="int" Nullable="false" />
+          <Property Name="Sellprice" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Sellamount" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="totalprofit" Type="int" />
           <Property Name="stockid" Type="int" Nullable="false" />
-          <Property Name="ROI" Type="decimal" Precision="5" Scale="4" Nullable="false" />
+          <Property Name="ROI" Type="decimal" Precision="5" Scale="4" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
         </EntityType>
         <EntityType Name="Transaction history">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="date" Type="datetime" Nullable="false" />
-          <Property Name="buyprice" Type="decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="buyamount" Type="decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="totalcost" Type="int" Nullable="false" />
-          <Property Name="BEpoint" Type="decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="buyorsell" Type="nvarchar" MaxLength="5" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockid" Type="int" />
+          <Property Name="buysell" Type="bit" />
+          <Property Name="price" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="amount" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="netincome" Type="int" />
+          <Property Name="date" Type="datetime" />
         </EntityType>
         <EntityContainer Name="DBTransactionModelStoreContainer">
           <EntitySet Name="Buyhistory" EntityType="Self.Buyhistory" Schema="dbo" store:Type="Tables" />
@@ -57,10 +61,13 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="stockid" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
-          <Property Name="buyprice" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="buyamount" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="totalcost" Type="Int32" Nullable="false" />
-          <Property Name="BEpoint" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
+          <Property Name="buyprice" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="buyamount" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="totalcost" Type="Int32" />
+          <Property Name="BEpoint" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="ERate" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TP" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Sellhistory">
           <Key>
@@ -69,22 +76,23 @@
           <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="stockid" Type="Int32" Nullable="false" />
           <Property Name="date" Type="DateTime" Precision="0" />
-          <Property Name="Sellprice" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="Sellamount" Type="Decimal" Precision="6" Scale="2" Nullable="false" />
-          <Property Name="totalprofit" Type="Int32" Nullable="false" />
-          <Property Name="ROI" Type="Decimal" Nullable="false" Precision="5" Scale="4" />
+          <Property Name="Sellprice" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Sellamount" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="totalprofit" Type="Int32" />
+          <Property Name="ROI" Type="Decimal" Precision="5" Scale="4" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Transaction_history">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="buyprice" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="buyamount" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="totalcost" Type="Int32" Nullable="false" />
-          <Property Name="BEpoint" Type="Decimal" Precision="8" Scale="3" Nullable="false" />
-          <Property Name="buyorsell" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+          <Property Name="buysell" Type="Boolean" />
+          <Property Name="price" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="amount" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="netincome" Type="Int32" />
+          <Property Name="stockid" Type="Int32" />
         </EntityType>
         <EntityContainer Name="DBTransactionEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Buyhistory" EntityType="Self.Buyhistory" />
@@ -100,6 +108,9 @@
           <EntitySetMapping Name="Buyhistory">
             <EntityTypeMapping TypeName="DBTransactionModel.Buyhistory">
               <MappingFragment StoreEntitySet="Buyhistory">
+                <ScalarProperty Name="Note" ColumnName="Note" />
+                <ScalarProperty Name="TP" ColumnName="TP" />
+                <ScalarProperty Name="ERate" ColumnName="ERate" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="date" ColumnName="date" />
                 <ScalarProperty Name="buyprice" ColumnName="buyprice" />
@@ -113,6 +124,7 @@
           <EntitySetMapping Name="Sellhistory">
             <EntityTypeMapping TypeName="DBTransactionModel.Sellhistory">
               <MappingFragment StoreEntitySet="Sellhistory">
+                <ScalarProperty Name="Note" ColumnName="Note" />
                 <ScalarProperty Name="ROI" ColumnName="ROI" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="date" ColumnName="date" />
@@ -126,14 +138,14 @@
           <EntitySetMapping Name="Transaction_history">
             <EntityTypeMapping TypeName="DBTransactionModel.Transaction_history">
               <MappingFragment StoreEntitySet="Transaction history">
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+                <ScalarProperty Name="netincome" ColumnName="netincome" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="buysell" ColumnName="buysell" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="date" ColumnName="date" />
-                <ScalarProperty Name="buyprice" ColumnName="buyprice" />
-                <ScalarProperty Name="buyamount" ColumnName="buyamount" />
-                <ScalarProperty Name="totalcost" ColumnName="totalcost" />
-                <ScalarProperty Name="BEpoint" ColumnName="BEpoint" />
-                <ScalarProperty Name="buyorsell" ColumnName="buyorsell" />
-              </MappingFragment>
+                </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
         </EntityContainerMapping>

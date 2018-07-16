@@ -4,6 +4,9 @@
     <EntitySetMapping Name="Buyhistory">
       <EntityTypeMapping TypeName="DBTransactionModel.Buyhistory">
         <MappingFragment StoreEntitySet="Buyhistory">
+          <ScalarProperty Name="Note" ColumnName="Note" />
+          <ScalarProperty Name="TP" ColumnName="TP" />
+          <ScalarProperty Name="ERate" ColumnName="ERate" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="date" ColumnName="date" />
           <ScalarProperty Name="buyprice" ColumnName="buyprice" />
@@ -17,6 +20,7 @@
     <EntitySetMapping Name="Sellhistory">
       <EntityTypeMapping TypeName="DBTransactionModel.Sellhistory">
         <MappingFragment StoreEntitySet="Sellhistory">
+          <ScalarProperty Name="Note" ColumnName="Note" />
           <ScalarProperty Name="ROI" ColumnName="ROI" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="date" ColumnName="date" />
@@ -30,13 +34,13 @@
     <EntitySetMapping Name="Transaction_history">
       <EntityTypeMapping TypeName="DBTransactionModel.Transaction_history">
         <MappingFragment StoreEntitySet="Transaction history">
+          <ScalarProperty Name="stockid" ColumnName="stockid" />
+          <ScalarProperty Name="netincome" ColumnName="netincome" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="buysell" ColumnName="buysell" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="buyprice" ColumnName="buyprice" />
-          <ScalarProperty Name="buyamount" ColumnName="buyamount" />
-          <ScalarProperty Name="totalcost" ColumnName="totalcost" />
-          <ScalarProperty Name="BEpoint" ColumnName="BEpoint" />
-          <ScalarProperty Name="buyorsell" ColumnName="buyorsell" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

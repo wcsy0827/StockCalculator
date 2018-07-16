@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Calculator.Properties;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -61,7 +63,10 @@ namespace Calculator
         //限制輸入條件
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            DBTransactionEntities dc = new DBTransactionEntities();
+            dataGridView1.DataSource = dc.Buyhistory.ToArray();
+            dataGridView1.Columns["Id"].Visible = false;
+            dataGridView1.Columns["totalcost"].DefaultCellStyle.Format = "c0";
             txtBuyPrice.MaxLength = 7;
         }
 
@@ -99,6 +104,7 @@ namespace Calculator
         double _ER = 0;
         double _buyprice = 0;
         double _buyamount = 0;
+        double _tp = 0;
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
@@ -108,20 +114,66 @@ namespace Calculator
             _buyprice = double.Parse(this.txtBuyPrice.Text)* 1000;
             _buyamount = double.Parse(this.txtBuyAmount.Text);
             _totalcost = _buyprice *_buyamount + fees;
-            _bepoint = _buyprice * (1 - 0.001425) / (1 - 0.001425 - 0.003);
+            _bepoint = _buyprice * (1 - 0.001425) / (1 - 0.001425 - 0.003)/1000;
             _ER = double.Parse(txtER.Text);
+            _tp = (_totalcost * (1 + _ER) / (_buyamount * (1 - 0.001425 - 0.003)) / 1000);
 
-            this.txtTotalCost.Text = (_buyprice * _buyamount + fees).ToString("C0");
+            this.txtTotalCost.Text =_totalcost.ToString("C0");
 
-            this.txtBEPoint.Text = (_buyprice * (1 - 0.001425) / (1 - 0.001425 - 0.003)/1000).ToString("C");
+            this.txtBEPoint.Text = _bepoint.ToString("C");
 
-            this.txtTP.Text = (_totalcost * (1 + _ER) / (_buyamount * (1 - 0.001425 - 0.003))/1000).ToString("C");
+            this.txtTP.Text = _tp.ToString("C");
 
             this.txtEProfit.Text = (_totalcost * _ER).ToString("C0");
         }
 
+        private void btnBuyInput_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = Settings.Default.DBTransactionConnectionString;
+                    using (SqlCommand command = new SqlCommand())
+                    {
+                        command.CommandText = "Insert into  Buyhistory(buyprice,buyamount,totalcost,BEpoint,ERate,TP,stockid,date,Note) values (@price, @amount,@cost,@BEpoint,@ERate,@TP,@id,@date,@Note)";
+                        command.Connection = conn;
 
+                        //=============================
 
+                        //==============================
+                        command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(this.txtStockID.Text);
+                        command.Parameters.Add("@price", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtBuyPrice.Text);
+                        //command.Parameters.Add("@price", SqlDbType.Decimal, 6).Value = (decimal) _buyprice;
+                        command.Parameters.Add("@amount", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtBuyAmount.Text);
+                        //command.Parameters.Add("@amount", SqlDbType.Decimal, 6).Value = (decimal)_buyamount;
+                        command.Parameters.Add("@cost", SqlDbType.Int).Value = _totalcost;
+                        //command.Parameters.Add("@cost", SqlDbType.Int).Value = (decimal)_totalcost;
+                        command.Parameters.Add("@BEpoint", SqlDbType.Decimal, 6).Value =(decimal)_bepoint;
+                        command.Parameters.Add("@ERate", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtER.Text);
+                        command.Parameters.Add("@TP", SqlDbType.Decimal, 6).Value =(decimal)_tp;
+                        command.Parameters.Add("@date", SqlDbType.SmallDateTime, 6).Value = this.dateTimePicker1.Value.ToShortDateString();
+                        command.Parameters.Add("@Note", SqlDbType.NVarChar, 6).Value = this.textBox1.Text;
+
+                        conn.Open();
+                        command.ExecuteNonQuery();
+
+                        MessageBox.Show("Insert data successfully");
+
+                    } //auto command.Dispose()
+                }//auto conn.Close(); conn.Dispose()
+
+                //重新整理datagridview
+                DBTransactionEntities dc = new DBTransactionEntities();
+                dataGridView1.DataSource = dc.Buyhistory.ToArray();
+                //dataGridView1.Columns["Id"].Visible = false;
+                dataGridView1.Columns["totalcost"].DefaultCellStyle.Format = "c0";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
 
 }

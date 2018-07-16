@@ -56,5 +56,43 @@ namespace Calculator
             FrmSell w = new FrmSell();
             w.Show();
         }
+
+        private void FrmMain_Load(object sender, EventArgs e)
+        {
+            DBTransactionEntities dc = new DBTransactionEntities();
+            var query = dc.Transaction_history.GroupBy(c => c.stockid).Select(od => new
+            {
+                股號 = od.Key,
+                庫存=od.Sum(s=>s.amount),
+               
+                
+            });
+           // var query = dc.Transaction_history.Select(c=>c).ToString();
+
+
+            this.dataGridView1.DataSource = query.ToArray();
+
+            
+               
+
+            //int stockid = int.Parse(this.txtstockid2.Text);
+            //DBTransactionEntities dc = new DBTransactionEntities();
+            //int[] arrcost = dc.Buyhistory.Where(s => s.stockid == stockid).Select(c => c.totalcost.Value).ToArray();
+            ////int[] arrtotalcost = dc.Buyhistory.Select(c => c.totalcost).Where(s => s == stockid).ToArray();
+            //decimal[] arramount = dc.Buyhistory.Where(s => s.stockid == stockid).Select(c => c.buyamount.Value).ToArray();
+
+            //decimal sumcost = (decimal)arrcost.Sum();
+            //decimal sumamount = arramount.Sum();
+            //decimal _avgcost = sumcost / sumamount / 1000;
+            //avgcost = (double)_avgcost;
+            
+            //dataGridView2.DataSource = dc.Sellhistory.ToArray();
+            //dataGridView2.Columns["Id"].Visible = false;
+            //dataGridView2.Columns["totalprofit"].DefaultCellStyle.Format = "c0";
+            //dataGridView2.Columns["ROI"].DefaultCellStyle.Format = "P2";
+
+
+
+        }
     }
 }

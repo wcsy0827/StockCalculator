@@ -18,3 +18,4 @@ D:\StockCalculatorProject1\Calculator\bin\Debug\zh-Hant\EntityFramework.resource
 D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.csproj.CopyComplete
 D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.FrmBuy.resources
 D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.FrmMain.resources
+D:\StockCalculatorProject1\Calculator\obj\Debug\Calculator.FrmSell.resources
