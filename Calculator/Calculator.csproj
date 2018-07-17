@@ -93,6 +93,12 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmAllTable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAllTable.Designer.cs">
+      <DependentUpon>FrmAllTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmBuy.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +135,9 @@
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmAllTable.resx">
+      <DependentUpon>FrmAllTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmBuy.resx">
       <DependentUpon>FrmBuy.cs</DependentUpon>

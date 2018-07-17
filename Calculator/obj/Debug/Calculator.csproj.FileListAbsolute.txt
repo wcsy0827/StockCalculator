@@ -40,3 +40,4 @@ C:\Users\wcsy0\OneDrive\文件\GitHub\StockCalculator\Calculator\obj\Debug\Calcu
 C:\Users\wcsy0\OneDrive\文件\GitHub\StockCalculator\Calculator\obj\Debug\Calculator.csproj.CopyComplete
 C:\Users\wcsy0\OneDrive\文件\GitHub\StockCalculator\Calculator\obj\Debug\Calculator.exe
 C:\Users\wcsy0\OneDrive\文件\GitHub\StockCalculator\Calculator\obj\Debug\Calculator.pdb
+C:\Users\wcsy0\OneDrive\文件\GitHub\StockCalculator\Calculator\obj\Debug\Calculator.FrmAllTable.resources

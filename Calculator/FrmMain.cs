@@ -16,11 +16,13 @@ namespace Calculator
         delegate void ThreadsSynchronization();
         FrmBuy f2 = new FrmBuy();
         FrmSell f3 = new FrmSell();
+        FrmAllTable f4 = new FrmAllTable();
         public FrmMain()
         {
             InitializeComponent();
             f2.f1 = this;
             f3.f1 = this;
+            f4.f1 = this;
             this.StartPosition = FormStartPosition.CenterScreen;
         }
         double _fees = 0;
@@ -85,8 +87,8 @@ namespace Calculator
             dataGridView1.Columns["平均每股成本"].Width = 150;
             dataGridView1.Columns["總成本"].DefaultCellStyle.Format = "c0";
             dataGridView1.Columns["總成本"].Width = 150;
-            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("新細明體", 12, FontStyle.Bold);
-            dataGridView1.DefaultCellStyle.Font= new Font("新細明體", 12, FontStyle.Regular);
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("微軟正黑體", 12, FontStyle.Bold);
+            dataGridView1.DefaultCellStyle.Font= new Font("Times New Roman", 12, FontStyle.Regular);
 
 
 
@@ -101,12 +103,17 @@ namespace Calculator
                             link = item.Element("link").Value,
                         };
             dataGridView2.DataSource = queryrss.ToList();
-            this.dataGridView2.Columns["標題"].Width =300;
+            this.dataGridView2.Columns["標題"].Width =350;
             this.dataGridView2.Columns["發布時間"].Width = 200;
-            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("新細明體", 12, FontStyle.Bold);
+            dataGridView2.ColumnHeadersDefaultCellStyle.Font = new Font("微軟正黑體", 12, FontStyle.Bold);
 
 
 
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            f4.Show();
         }
     }
 }
