@@ -14,10 +14,15 @@ namespace Calculator
 {
     public partial class FrmBuy : Form
     {
+        internal FrmMain f1 = null;
         public FrmBuy()
         {
+            
             InitializeComponent();
+            this.StartPosition = FormStartPosition.CenterParent;
+
         }
+
         double _fees = 0;
         private double fees
         {
@@ -64,9 +69,23 @@ namespace Calculator
         private void Form1_Load(object sender, EventArgs e)
         {
             DBTransactionEntities dc = new DBTransactionEntities();
-            dataGridView1.DataSource = dc.Buyhistory.ToArray();
-            dataGridView1.Columns["Id"].Visible = false;
-            dataGridView1.Columns["totalcost"].DefaultCellStyle.Format = "c0";
+            var querybuy = dc.Buyhistory.AsParallel().Select(od => new
+            {
+                日期 = od.date,
+                股號 = od.stockid,
+                買進價格 = od.buyprice,
+                買進數量 = od.buyamount,
+                買進總成本 = od.totalcost,
+                損平價格 = od.BEpoint,
+                預期報酬 = od.ERate,
+                目標價 = od.TP,
+                筆記 = od.Note
+            });
+            dataGridView1.DataSource =querybuy.ToArray();
+            //dataGridView1.Columns["Id"].Visible = false;
+            dataGridView1.Columns["買進總成本"].DefaultCellStyle.Format = "c0";
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("新細明體", 10, FontStyle.Bold);
+            dataGridView1.Columns["買進總成本"].Width = 120;
             txtBuyPrice.MaxLength = 7;
         }
 
@@ -115,7 +134,7 @@ namespace Calculator
             _buyamount = double.Parse(this.txtBuyAmount.Text);
             _totalcost = _buyprice *_buyamount + fees;
             _bepoint = _buyprice * (1 - 0.001425) / (1 - 0.001425 - 0.003)/1000;
-            _ER = double.Parse(txtER.Text);
+            _ER = double.Parse(txtER.Text)/100;
             _tp = (_totalcost * (1 + _ER) / (_buyamount * (1 - 0.001425 - 0.003)) / 1000);
 
             this.txtTotalCost.Text =_totalcost.ToString("C0");
@@ -136,11 +155,10 @@ namespace Calculator
                     conn.ConnectionString = Settings.Default.DBTransactionConnectionString;
                     using (SqlCommand command = new SqlCommand())
                     {
+                        //===========輸入買進表========================
                         command.CommandText = "Insert into  Buyhistory(buyprice,buyamount,totalcost,BEpoint,ERate,TP,stockid,date,Note) values (@price, @amount,@cost,@BEpoint,@ERate,@TP,@id,@date,@Note)";
                         command.Connection = conn;
-
-                        //=============================
-
+                        
                         //==============================
                         command.Parameters.Add("@id", SqlDbType.Int).Value = int.Parse(this.txtStockID.Text);
                         command.Parameters.Add("@price", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtBuyPrice.Text);
@@ -150,12 +168,25 @@ namespace Calculator
                         command.Parameters.Add("@cost", SqlDbType.Int).Value = _totalcost;
                         //command.Parameters.Add("@cost", SqlDbType.Int).Value = (decimal)_totalcost;
                         command.Parameters.Add("@BEpoint", SqlDbType.Decimal, 6).Value =(decimal)_bepoint;
-                        command.Parameters.Add("@ERate", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtER.Text);
+                        command.Parameters.Add("@ERate", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtER.Text)/100;
                         command.Parameters.Add("@TP", SqlDbType.Decimal, 6).Value =(decimal)_tp;
                         command.Parameters.Add("@date", SqlDbType.SmallDateTime, 6).Value = this.dateTimePicker1.Value.ToShortDateString();
                         command.Parameters.Add("@Note", SqlDbType.NVarChar, 6).Value = this.textBox1.Text;
 
                         conn.Open();
+                        command.ExecuteNonQuery();
+                        //===========輸入總表========================
+
+                        command.CommandText = "Insert into  [Transaction history](stockid,buysell,price,amount,netincome,date) values (@id2, @buysell,@price2,@amount2,@netincome,@date2)";
+
+                        //==============================
+                        command.Parameters.Add("@id2", SqlDbType.Int).Value = int.Parse(this.txtStockID.Text);
+                        command.Parameters.Add("@buysell", SqlDbType.Bit).Value = 1;
+                        command.Parameters.Add("@price2", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtBuyPrice.Text);
+                        command.Parameters.Add("@amount2", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtBuyAmount.Text);
+                        command.Parameters.Add("@netincome", SqlDbType.Int).Value = _totalcost * (-1);
+                        command.Parameters.Add("@date2", SqlDbType.SmallDateTime, 6).Value = this.dateTimePicker1.Value.ToShortDateString();
+
                         command.ExecuteNonQuery();
 
                         MessageBox.Show("Insert data successfully");
@@ -164,14 +195,72 @@ namespace Calculator
                 }//auto conn.Close(); conn.Dispose()
 
                 //重新整理datagridview
-                DBTransactionEntities dc = new DBTransactionEntities();
-                dataGridView1.DataSource = dc.Buyhistory.ToArray();
+                DBTransactionEntities dc= new DBTransactionEntities();
+                var querybuy = dc.Buyhistory.AsParallel().Select(od => new
+                {
+                    日期=od.date,
+                    股號 = od.stockid,
+                    買進價格 = od.buyprice,
+                    買進數量=od.buyamount,
+                    買進總成本=od.totalcost,
+                    損平價格=od.BEpoint,
+                    預期報酬=od.ERate,
+                    目標價=od.TP,
+                    筆記=od.Note
+                });
+
+
+                dataGridView1.DataSource = querybuy.ToArray();
                 //dataGridView1.Columns["Id"].Visible = false;
-                dataGridView1.Columns["totalcost"].DefaultCellStyle.Format = "c0";
+                dataGridView1.Columns["買進總成本"].DefaultCellStyle.Format = "c0";
+                dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("新細明體", 10, FontStyle.Bold);
+                dataGridView1.Columns["買進總成本"].Width = 120;
+
+
+
+
+                //更新frmmain庫存狀況
+
+                var query = dc.Transaction_history.GroupBy(c => c.stockid).Select(od => new
+                {
+                    股號 = od.Key,
+                    庫存 = od.Sum(s => s.amount),
+                    平均成本 = od.Where(bs => bs.buysell == true).Sum(c => c.netincome * (-1)) / od.Where(bs => bs.buysell == true).Sum(a => a.amount) / 1000
+
+                });
+                
+
+
+
+                f1.dataGridView1.DataSource = query.ToArray();
+                f1.dataGridView1.Columns["平均成本"].DefaultCellStyle.Format = "c2";
+
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+
+
+        }
+
+        private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void FrmBuy_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if(e.CloseReason==CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                ((Form)sender).Hide();
             }
         }
     }

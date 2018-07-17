@@ -15,11 +15,11 @@ namespace Calculator
     public partial class Sellhistory
     {
         public int Id { get; set; }
-        public int stockid { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<decimal> Sellprice { get; set; }
         public Nullable<decimal> Sellamount { get; set; }
         public Nullable<int> totalprofit { get; set; }
+        public int stockid { get; set; }
         public Nullable<decimal> ROI { get; set; }
         public string Note { get; set; }
     }

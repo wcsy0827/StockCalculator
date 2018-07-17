@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBTransactionModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Buyhistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="smalldatetime" />
+          <Property Name="buyprice" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="buyamount" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="totalcost" Type="int" />
+          <Property Name="BEpoint" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="stockid" Type="int" Nullable="false" />
+          <Property Name="ERate" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="TP" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Sellhistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="date" Type="smalldatetime" />
+          <Property Name="Sellprice" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="Sellamount" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="totalprofit" Type="int" />
+          <Property Name="stockid" Type="int" Nullable="false" />
+          <Property Name="ROI" Type="decimal" Precision="5" Scale="4" />
+          <Property Name="Note" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="Transaction history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="stockid" Type="int" />
+          <Property Name="buysell" Type="bit" />
+          <Property Name="price" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="amount" Type="decimal" Precision="6" Scale="2" />
+          <Property Name="netincome" Type="int" />
+          <Property Name="date" Type="datetime" />
+        </EntityType>
+        <EntityContainer Name="DBTransactionModel1StoreContainer">
+          <EntitySet Name="Buyhistory" EntityType="Self.Buyhistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sellhistory" EntityType="Self.Sellhistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaction history" EntityType="Self.Transaction history" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBTransactionModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Buyhistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="buyprice" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="buyamount" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="totalcost" Type="Int32" />
+          <Property Name="BEpoint" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="stockid" Type="Int32" Nullable="false" />
+          <Property Name="ERate" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="TP" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sellhistory">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="date" Type="DateTime" Precision="0" />
+          <Property Name="Sellprice" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="Sellamount" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="totalprofit" Type="Int32" />
+          <Property Name="stockid" Type="Int32" Nullable="false" />
+          <Property Name="ROI" Type="Decimal" Precision="5" Scale="4" />
+          <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Transaction_history">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="stockid" Type="Int32" />
+          <Property Name="buysell" Type="Boolean" />
+          <Property Name="price" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="amount" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="netincome" Type="Int32" />
+          <Property Name="date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityContainer Name="DBTransactionEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Buyhistories" EntityType="Self.Buyhistory" />
+          <EntitySet Name="Sellhistories" EntityType="Self.Sellhistory" />
+          <EntitySet Name="Transaction_histories" EntityType="Self.Transaction_history" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBTransactionModel1StoreContainer" CdmEntityContainer="DBTransactionEntities1">
+          <EntitySetMapping Name="Buyhistories">
+            <EntityTypeMapping TypeName="DBTransactionModel1.Buyhistory">
+              <MappingFragment StoreEntitySet="Buyhistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="buyprice" ColumnName="buyprice" />
+                <ScalarProperty Name="buyamount" ColumnName="buyamount" />
+                <ScalarProperty Name="totalcost" ColumnName="totalcost" />
+                <ScalarProperty Name="BEpoint" ColumnName="BEpoint" />
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+                <ScalarProperty Name="ERate" ColumnName="ERate" />
+                <ScalarProperty Name="TP" ColumnName="TP" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sellhistories">
+            <EntityTypeMapping TypeName="DBTransactionModel1.Sellhistory">
+              <MappingFragment StoreEntitySet="Sellhistory">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="date" ColumnName="date" />
+                <ScalarProperty Name="Sellprice" ColumnName="Sellprice" />
+                <ScalarProperty Name="Sellamount" ColumnName="Sellamount" />
+                <ScalarProperty Name="totalprofit" ColumnName="totalprofit" />
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+                <ScalarProperty Name="ROI" ColumnName="ROI" />
+                <ScalarProperty Name="Note" ColumnName="Note" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaction_histories">
+            <EntityTypeMapping TypeName="DBTransactionModel1.Transaction_history">
+              <MappingFragment StoreEntitySet="Transaction history">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="stockid" ColumnName="stockid" />
+                <ScalarProperty Name="buysell" ColumnName="buysell" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="netincome" ColumnName="netincome" />
+                <ScalarProperty Name="date" ColumnName="date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="無" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

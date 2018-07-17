@@ -14,9 +14,12 @@ namespace Calculator
 {
     public partial class FrmSell : Form
     {
+        internal FrmMain f1 = null;
         public FrmSell()
         {
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterParent;
         }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
@@ -65,40 +68,66 @@ namespace Calculator
         {
             int stockid = int.Parse(this.txtstockid2.Text);
             DBTransactionEntities dc = new DBTransactionEntities();
-            int[] arrcost = dc.Buyhistory.Where(s => s.stockid == stockid).Select(c => c.totalcost.Value).ToArray();
-            //int[] arrtotalcost = dc.Buyhistory.Select(c => c.totalcost).Where(s => s == stockid).ToArray();
-            decimal[] arramount = dc.Buyhistory.Where(s => s.stockid == stockid).Select(c => c.buyamount.Value).ToArray();
+            label4.Text= dc.Transaction_history.AsParallel().Where(s => s.stockid == stockid).Sum(a => a.amount).ToString();
+           
+            this.label5.Text =$"NT$ {(dc.Transaction_history.Where(s => s.stockid == stockid && s.buysell == true).Sum(c => c.netincome) / dc.Transaction_history.Where(s => s.stockid == stockid && s.buysell == true).Sum(c => c.amount)/-1000).ToString()}";
+            avgcost =double.Parse( (dc.Transaction_history.Where(s => s.stockid == stockid && s.buysell == true).Sum(c => c.netincome) / dc.Transaction_history.Where(s => s.stockid == stockid && s.buysell == true).Sum(c => c.amount)/-1000).ToString() );
 
-            decimal sumcost = (decimal)arrcost.Sum();
-            decimal sumamount = arramount.Sum();
-            decimal _avgcost = sumcost / sumamount/1000;
-            avgcost =(double)_avgcost;
+            //=====歷史買進表=====
+            var querybuy = dc.Buyhistory.AsParallel().Where(s=>s.stockid==stockid).Select(od => new
+            {
+                日期 = od.date,
+                股號 = od.stockid,
+                買進價格 = od.buyprice,
+                買進數量 = od.buyamount,
+                買進總成本 = od.totalcost,
+                損平價格 = od.BEpoint,
+                預期報酬 = od.ERate,
+                目標價 = od.TP,
+                筆記 = od.Note
+            });
+                        this.dataGridView1.DataSource =querybuy.ToArray();
+            dataGridView1.Columns["買進總成本"].DefaultCellStyle.Format = "c0";
+            dataGridView1.ColumnHeadersDefaultCellStyle.Font = new Font("新細明體", 10, FontStyle.Bold);
+            dataGridView1.Columns["買進總成本"].Width = 120;
 
-            this.label4.Text = sumamount.ToString();
-            this.label5.Text = avgcost.ToString("C2");
+            ////=====歷史賣出表=====
+            //var querysell = dc.Sellhistory.AsParallel().Where(s => s.stockid == stockid).Select(od => new
+            //{
+            //    日期 = od.date,
+            //    股號 = od.stockid,
+            //    賣出價格 = od.Sellprice,
+            //    賣出數量 = od.Sellamount,
+            //    獲利 = od.totalprofit,
+            //    報酬率 = od.ROI,
+            //    筆記 = od.Note
+            //});
+            //dataGridView2.DataSource = dc.Sellhistory.ToArray();
 
-            this.dataGridView1.DataSource = dc.Buyhistory.Where(s => s.stockid == stockid).ToArray();
-            this.dataGridView1.Columns["Id"].Visible = false;
-            this.dataGridView1.Columns["totalcost"].DefaultCellStyle.Format = "C0";
+            //dataGridView2.Columns["獲利"].DefaultCellStyle.Format = "c0";
+            //dataGridView2.Columns["報酬率"].DefaultCellStyle.Format = "P2";
+
 
         }
         double _netincome = 0;
         double _ROI = 0;
         double _sellamount = 0;
         double _sellprice = 0;
+        double _cost = 0;
+        double _profit = 0;
 
         private void button1_Click(object sender, EventArgs e)
         {          
 
             fees = double.Parse(this.txtSellPrice.Text) * 1000 * double.Parse(this.txtSellAmount.Text) * 0.001425;
             tax = double.Parse(this.txtSellPrice.Text) * 1000 * double.Parse(this.txtSellAmount.Text) * 0.003;
-            _sellamount = double.Parse(txtSellAmount.Text);
+            _sellamount = double.Parse(txtSellAmount.Text); 
             _sellprice = double.Parse(txtSellPrice.Text)*1000;
 
 
-            double _cost = _sellamount * avgcost*1000;
-            double _profit = _sellamount * _sellprice - fees - tax;
 
+             _profit = _sellamount * _sellprice - fees - tax;
+            _cost = _sellamount * avgcost*1000;
             _netincome = (_profit - _cost);
             _ROI = _netincome / _cost;
 
@@ -134,22 +163,70 @@ namespace Calculator
 
                         conn.Open();
                         command.ExecuteNonQuery();
+                        //===================================
+
+                        command.CommandText = "Insert into  [Transaction history](stockid,buysell,price,amount,netincome,date) values (@id2, @buysell,@price2,@amount2,@netincome,@date2)";
+
+                        //==============================
+                        command.Parameters.Add("@id2", SqlDbType.Int).Value = int.Parse(this.txtstockid2.Text);
+                        command.Parameters.Add("@buysell", SqlDbType.Bit).Value =0;
+                        command.Parameters.Add("@price2", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtSellPrice.Text);
+                        command.Parameters.Add("@amount2", SqlDbType.Decimal, 6).Value = decimal.Parse(this.txtSellAmount.Text)*(-1);
+                        command.Parameters.Add("@netincome", SqlDbType.Int).Value = _profit;
+                        command.Parameters.Add("@date2", SqlDbType.SmallDateTime, 6).Value = this.dateTimePicker2.Value.ToShortDateString();
+                        //conn.Open();
+                        command.ExecuteNonQuery();
 
                         MessageBox.Show("Insert data successfully");
+
 
                     } //auto command.Dispose()
                 }//auto conn.Close(); conn.Dispose()
 
                 //重新整理datagridview
                 DBTransactionEntities dc = new DBTransactionEntities();
+                var querysell = dc.Sellhistory.AsParallel().Select(od => new
+                {
+                    日期 = od.date,
+                    股號 = od.stockid,
+                    賣出價格 = od.Sellprice,
+                    賣出數量 = od.Sellamount,
+                    獲利 = od.totalprofit,
+                    報酬率 = od.ROI,
+                    筆記 = od.Note
+                });
                 dataGridView2.DataSource = dc.Sellhistory.ToArray();
                 dataGridView2.Columns["Id"].Visible = false;
                 dataGridView2.Columns["totalprofit"].DefaultCellStyle.Format = "c0";
                 dataGridView2.Columns["ROI"].DefaultCellStyle.Format = "P2";
+
+                //更新frmmain庫存狀況
+
+                var query = dc.Transaction_history.GroupBy(c => c.stockid).Select(od => new
+                {
+                    股號 = od.Key,
+                    庫存 = od.Sum(s => s.amount),
+                    平均成本 = od.Where(bs => bs.buysell == true).Sum(c => c.netincome * (-1)) / od.Where(bs => bs.buysell == true).Sum(a => a.amount) / 1000
+
+                });
+
+                f1.dataGridView1.DataSource = query.ToArray();
+                f1.dataGridView1.Columns["平均成本"].DefaultCellStyle.Format = "c2";
+
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void FrmSell_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (e.CloseReason == CloseReason.UserClosing)
+            {
+                e.Cancel = true;
+                ((Form)sender).Hide();
             }
         }
     }
