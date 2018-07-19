@@ -15,12 +15,12 @@ namespace Calculator
     public partial class Buyhistory
     {
         public int Id { get; set; }
+        public int stockid { get; set; }
         public Nullable<System.DateTime> date { get; set; }
         public Nullable<decimal> buyprice { get; set; }
         public Nullable<decimal> buyamount { get; set; }
         public Nullable<int> totalcost { get; set; }
         public Nullable<decimal> BEpoint { get; set; }
-        public int stockid { get; set; }
         public Nullable<decimal> ERate { get; set; }
         public Nullable<decimal> TP { get; set; }
         public string Note { get; set; }
